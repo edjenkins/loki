@@ -1,0 +1,62 @@
+resetlist()
+  list-style none
+  margin 0
+  padding 0
+  li
+    list-style none
+    margin 0
+    padding 0
+
+reset()
+  margin 0
+  padding 0
+
+pinned()
+  bottom 0
+  top 0
+  left 0
+  right 0
+
+border-box()
+  box-sizing border-box
+  -moz-box-sizing border-box
+  -webkit-box-sizing border-box
+
+box-shadow(args)
+  box-shadow args
+  -moz-box-shadow args
+  -webkit-box-shadow args
+
+radius(r)
+  border-radius r
+  -moz-border-radius r
+  -webkit-border-radius r
+
+animate()
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+
+gradient()
+  background-color $color-primary
+  background -moz-linear-gradient(left, $color-primary 0%, darken($color-primary, 20%) 100%)
+  background -webkit-linear-gradient(left, $color-primary 0%,darken($color-primary, 20%) 100%)
+  background linear-gradient(to right, $color-primary 0%,darken($color-primary, 20%) 100%)
+  // filter progid:DXImageTransform.Microsoft.gradient( startColorstr='#2087db', endColorstr='#2395f7',GradientType=1 ); /* IE6-9 */
+
+hover(args)
+  animate()
+  &:hover
+    cursor pointer
+    background-color darken(args, 10%)
+
+abstl(distance)
+  position absolute
+  top distance
+  left distance
+
+abstr(distance)
+  position absolute
+  top distance
+  right distance

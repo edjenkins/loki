@@ -1,0 +1,68 @@
+
+button, .button, a.button
+  animate()
+  radius(22px)
+  background-color $color-grey
+  border none
+  color white
+  display inline-block
+  font-size 1em
+  line-height 44px
+  outline 0
+  padding 0px 25px
+  text-decoration none
+  &:hover
+    cursor pointer
+    background-color darken($color-grey, 10%)
+
+  &.subtle-button
+    background-color white
+    border $color-info 1px solid
+    color $color-info
+    &:hover
+      background-color darken($color-info, 10%)
+      color white
+
+  &.info-button
+    background-color $color-info
+    &:hover
+      background-color darken($color-info, 10%)
+
+  &.warning-button
+    background-color $color-warning
+    &:hover
+      background-color darken($color-warning, 10%)
+
+  &.danger-button
+    background-color $color-danger
+    &:hover
+      background-color darken($color-danger, 10%)
+
+  &.success-button
+    background-color $color-success
+    &:hover
+      background-color darken($color-success, 10%)
+  &.control-button
+    background-color white
+    color $color-primary
+    &:hover
+      background-color alpha(white, 0.8)
+  
+  &.subtle
+    background-color white
+    border-color $color-border
+    color $color-text-grey
+    &:hover
+      background-color $color-border
+      color darken($color-text-grey, 10%)
+
+  &.unavailable
+    background-color $color-lightest-grey
+    color #444 !important
+    pointer-events none
+    text-decoration line-through
+
+  &.disabled
+    background-color $color-lightest-grey
+    color #444 !important
+    pointer-events none

@@ -1,0 +1,47 @@
+.alpha-white, .alpha-white *
+  color alpha(white, 0.6)
+  text-decoration none
+
+hr
+  border none
+  border-bottom $color-border 1px solid
+  margin 20px 10px
+
+.pull-left
+  float left
+
+.pull-right
+  float right
+
+.clearfix
+  clear both
+  float none
+
+.hidden
+  display none
+
+.fade-enter-active, .fade-leave-active
+  height 90px
+  max-height 90px
+  //transition all 1.5s ease
+
+.fade-enter, .fade-leave-to
+  height 0px
+  max-height 0px
+  opacity 1
+
+.notification-label
+  radius(6px)
+  background-color alpha(white, 0.3)
+  display inline-block
+  color white
+  margin-bottom 20px
+  padding 10px 20px
+
+
+.view-controls
+  padding 10px
+  .button
+    padding 0 15px
+    &:not(:first-child)
+      margin-left 10px
