@@ -1,11 +1,13 @@
 const Subscriber = require('../../app/models/subscriber')
-const Group = require('../../app/models/group')
 
 module.exports = function (app, passport) {
   app.get('/subscribers',
     async (req, res) => {
-      const subscribers = await Subscriber.find({})
-      res.json({ subscribers })
+      const skip = parseInt(req.query.skip || 0)
+      const limit = parseInt(req.query.limit || 50)
+      const subscribers = await Subscriber.find({}).populate('address').limit(limit).skip(skip)
+      const count = await Subscriber.count()
+      res.json({ subscribers: subscribers, count: count, skip: skip })
     })
   app.put('/subscriber',
     async (req, res) => {
@@ -14,24 +16,20 @@ module.exports = function (app, passport) {
       res.json({ subscriber })
     })
   app.post('/subscriber',
-    async (req, res) => {
-      let subscriber = new Subscriber(req.body)
-      subscriber = await subscriber.save()
-      subscriber = await Subscriber.findOne({ _id: subscriber._id })
-      subscriber.groups.push(subscriber.address.group)
-      subscriber = await subscriber.save()
-      console.log('subscriber')
-      console.log(subscriber)
-      // Update group subscribers
-      let group = await Group.findOneAndUpdate({ _id: subscriber.address.group }, { $push: { subscribers: subscriber } }, { upsert: true })
-      console.log(group)
+    async (req, res) => {      
+      let subscriber = await new Subscriber(req.body).saveAndPopulate('address')
       res.json({ subscriber })
     })
   app.post('/subscriber/destroy',
+  async (req, res) => {
+    let subscriber = await Subscriber.findOneAndUpdate({ _id: req.body._id }, { destroyed: new Date() }, { upsert: true })
+    subscriber = await Subscriber.findOne({ _id: subscriber._id })
+    res.json({ subscriber })
+  })
+  app.post('/subscriber/destroy/all',
     async (req, res) => {
-      let subscriber = await Subscriber.findOneAndUpdate({ _id: req.body._id }, { destroyed: new Date() }, { upsert: true })
-      subscriber = await Subscriber.findOne({ _id: subscriber._id })
-      res.json({ subscriber })
+      const subscribers = await Subscriber.deleteMany({})
+      res.json({ subscribers })
     })
   app.get('/subscriber/:id',
     async (req, res) => {

@@ -17,6 +17,8 @@ const actions = {
   async getSubscribers () {
     // Fetch subscribers
     API.subscriber.all(
+      0,
+      1000000,
       (response) => {
         console.log(response)
         this.commit('saveSubscribers', response.subscribers)

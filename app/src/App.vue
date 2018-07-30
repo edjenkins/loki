@@ -15,10 +15,6 @@ export default {
   mounted () {
     this.$store.dispatch('getGroups')
     this.$store.dispatch('getSubscribers')
-    setInterval(() => {
-      this.$store.dispatch('getGroups')
-      this.$store.dispatch('getSubscribers')
-    }, 5000)
   }
 }
 </script>

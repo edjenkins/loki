@@ -7,8 +7,8 @@ export default {
       cb(response.data)
     }).catch((error) => { errorCb(error) })
   },
-  all (cb, errorCb) {
-    axios.get(`${config.API_ADDRESS}/subscribers`, { withCredentials: true }).then((response) => {
+  all (skip, limit, cb, errorCb) {
+    axios.get(`${config.API_ADDRESS}/subscribers?skip=${skip}&limit=${limit}`, { withCredentials: true }).then((response) => {
       cb(response.data)
     }).catch((error) => { errorCb(error) })
   },
@@ -19,6 +19,11 @@ export default {
   },
   destroy (_id, cb, errorCb) {
     axios.post(`${config.API_ADDRESS}/subscriber/destroy`, { _id }, { withCredentials: true }).then((response) => {
+      cb(response.data)
+    }).catch((error) => { errorCb(error) })
+  },
+  destroyAll (cb, errorCb) {
+    axios.post(`${config.API_ADDRESS}/subscriber/destroy/all`, {}, { withCredentials: true }).then((response) => {
       cb(response.data)
     }).catch((error) => { errorCb(error) })
   }

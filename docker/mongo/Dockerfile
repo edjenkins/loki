@@ -8,4 +8,4 @@ ADD run.sh /run.sh
 ADD set_mongodb_password.sh /set_mongodb_password.sh
 
 #RUN ["mongod --auth"]
-#CMD ["/run.sh"]
+CMD ["/run.sh"]

@@ -12,8 +12,8 @@
           li(v-for="(group, index) in groups" v-bind:key="index" @click="selectLayer(group._id, true)" :class="{ 'active': activeGroup === group._id }")
             i.fas.fa-circle(v-bind:style="{ 'color': getColor(group.identifier) }" data-fa-transform="shrink-5")
             h4 {{ group.identifier }}
-            p {{ `${ group.addresses ? Object.keys(group.addresses).length : 'No' } location(s)` }}
-            p {{ `${ group.subscribers ? Object.keys(group.subscribers).length : 'No' } subscriber(s)` }}
+            p {{ pluralise('location', Object.keys(group.addresses).length) }}
+            p {{ pluralise('subscriber', Object.keys(group.subscribers).length) }}
 
     .section
       router-link.header(v-bind:to="{ name: 'messages' }" tag="div" title="Manage messages")
@@ -73,6 +73,11 @@ export default {
     ...mapGetters(['groups'])
   },
   methods: {
+    pluralise (string, count) {
+      string = `${count !== 0 ? count : 'No'} ${string}`
+      string += count !== 1 ? 's' : ''
+      return string
+    },
     getColor (group) {
       return this.colorFromId(parseInt(group, 36))
     },

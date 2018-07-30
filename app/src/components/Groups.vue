@@ -7,8 +7,12 @@
       i.fas.fa-arrow-left
     .button.info-button.pull-left(@click="toggleViewMode")
       i.fas.fa-window-maximize
-    .button.success-button.pull-right(@click="parseCSV" title="Parse CSV")
+    .button.danger-button.pull-right(@click="destroyAllGroups")
+      i.fas.fa-exclamation-circle
+    .button.success-button.pull-right(@click="parseGroupsCSV" title="Parse Groups CSV")
       i.fas.fa-sync-alt
+    .button.success-button.pull-right(@click="getGroups" title="Fetch Groups")
+      i.fas.fa-download
     .clearfix
 
   .group-tiles(v-if="viewMode === 'tiles'")
@@ -20,7 +24,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import API from '@/api'
 
 import axios from 'axios'
 
@@ -42,8 +47,22 @@ export default {
     ...mapGetters(['groups'])
   },
   methods: {
-    parseCSV () {
-      axios.get('http://localhost:3000/parse')
+    ...mapActions(['getGroups']),
+    parseGroupsCSV () {
+      axios.get('http://localhost:3000/parse/groups').then(response => {
+        this.$store.dispatch('getGroups')
+      })
+    },
+    destroyAllGroups () {
+      API.group.destroyAll(
+        (response) => {
+          console.log(response)
+          this.$store.dispatch('getGroups')
+        },
+        (response) => {
+          console.log(response)
+        }
+      )
     }
   }
 }

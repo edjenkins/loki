@@ -22,6 +22,11 @@ export default {
       cb(response.data)
     }).catch((error) => { errorCb(error) })
   },
+  destroyAll (cb, errorCb) {
+    axios.post(`${config.API_ADDRESS}/group/destroy/all`, {}, { withCredentials: true }).then((response) => {
+      cb(response.data)
+    }).catch((error) => { errorCb(error) })
+  },
   source (id, cb, errorCb) {
     axios.get(`${config.API_ADDRESS}/source/${id}`, { withCredentials: true }).then((response) => {
       cb(response.data)
